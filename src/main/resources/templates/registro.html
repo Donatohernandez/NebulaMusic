@@ -19,7 +19,7 @@
 
                 <div>
                     <label for="nombre">Nombre Completo</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="ej. donato hernandez" required minlength="10">
+                    <input type="text" id="nombre" name="nombre" placeholder="ej. donato hernandez" required minlength="10" spellcheck="false" autocomplete="off">
                 </div>
 
                 <div>
@@ -29,7 +29,7 @@
 
                 <div>
                     <label type="contrasenia">Contraseña</label>
-                    <input type="password" id="contrasenia" name="contrasenia" placeholder="Minimo 8 caracteres" required>
+                    <input type="password" id="contrasenia" name="contrasenia" placeholder="Minimo 8 caracteres" required spellcheck="false" autocomplete="off">
                 </div>
 
                 <div>
@@ -38,7 +38,9 @@
                            id="txt_pseudonimo"
                            name="txt_pseudonimo"
                            required
-                           placeholder="Nebula-2025">
+                           placeholder="Nebula-2025"
+                           spellcheck="false"
+                           autocomplete="off">
                 </div>
 
                 <div>
@@ -91,6 +93,7 @@
 
     <footer>
         <p>Copyright Nébula 2025.</p>
+        <a href="#">Términos y condiciones</a>
     </footer>
 
 </body>

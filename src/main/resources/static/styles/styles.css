@@ -1,9 +1,14 @@
 /* ==========================================================
    NÉBULA MUSIC - CÓDIGO BASE (ESTILOS PARA ALUMNOS)
    ==========================================================
-   Este archivo contiene únicamente la configuración inicial, 
-   reseteo básico y la paleta de colores del proyecto mediante 
+   Este archivo contiene únicamente la configuración inicial,
+   reseteo básico y la paleta de colores del proyecto mediante
    variables de CSS (:root).
+
+   Enfoque: MOBILE FIRST + RESPONSIVE
+   - Base: móvil (320px - 480px)
+   - @media (min-width: 768px): tablet
+   - @media (min-width: 1024px): escritorio
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
@@ -17,6 +22,8 @@
     --links-hover-dark: #8D91C7;   /* Color de enlaces al pasar el mouse */
     --nav-links: #8d3fd1;          /* Color de enlaces de navegación */
     --highlight: #EDF67D; /* Color de acento/resaltados */
+    --btn-primary: #2ecc71; /* Color de botones principales (enviar) */
+    --btn-primary-hover: #27ae60;
     --radius: 12px;
 }
 
@@ -37,10 +44,13 @@ body {
     min-height: 100vh;
 }
 
-
+/* ==========================================================
+   NAVEGACIÓN
+   ========================================================== */
 
 nav{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     background-color: var(--bg-color-dark);
@@ -49,17 +59,18 @@ nav{
     position: sticky;
     top: 0;
     z-index: 100;
-
 }
 
 #menu-toggle{
     display: none;
 }
 
+/* Móvil: botón hamburguesa visible */
 .menu-button{
-    display: none;
+    display: flex;
     cursor: pointer;
     flex-direction: column;
+    justify-content: center;
     gap: 5px;
     width: 30px;
 }
@@ -73,11 +84,35 @@ nav{
     transition: all 0.3s ease;
 }
 
+/* Móvil: menú oculto por defecto, vertical al desplegarse */
 nav ul{
-    display: flex;
-    align-items: center;
+    display: none;
+    flex-direction: column;
     list-style: none;
-    gap: 25px;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+    margin-top: 15px;
+    background-color: rgba(19, 18, 0, 0.98);
+    border-bottom: 2px solid #2a280a;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+#menu-toggle:checked ~ ul{
+    display: flex;
+}
+
+#menu-toggle:checked ~ .menu-button span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+#menu-toggle:checked ~ .menu-button span:nth-child(2) {
+    opacity: 0;
+}
+
+#menu-toggle:checked ~ .menu-button span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -7px);
 }
 
 nav a{
@@ -91,10 +126,14 @@ nav a:hover{
     color: var(--highlight);
 }
 
+/* ==========================================================
+   CABECERA / HERO
+   ========================================================== */
+
 header .principal{
     position: relative;
     overflow: hidden;
-    height: 400px;
+    height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,7 +152,7 @@ header .principal img{
 header .principal h1{
     position: relative;
     z-index: 2;
-    font-size: 2.5rem;
+    font-size: 1.6rem;
     padding: 0 20px;
     max-width: 800px;
     color: var(--text-color-dark);
@@ -124,16 +163,21 @@ header .principal span{
     text-shadow: 0 0 10px rgba(237, 246, 125, .5);
 }
 
+/* ==========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================== */
+
 main{
     max-width: 1200px;
     width: 100%;
-    margin:  30px auto;
+    margin: 30px auto;
     padding: 0 20px;
 }
 
+/* Móvil: 1 columna */
 #noticias{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr;
     gap: 30px;
 }
 
@@ -177,21 +221,25 @@ main{
     color: #cdb5e0;
 }
 
+/* ==========================================================
+   FORMULARIOS DE AUTENTICACIÓN
+   ========================================================== */
 
 .auth-container{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
+    padding: 20px 10px;
 }
 
+/* Móvil: ocupa casi todo el ancho */
 .auth-card{
     background-color: var(--card-bg-dark);
     width: 100%;
-    max-width: 420px;
-    padding: 40px 30px;
+    max-width: 100%;
+    padding: 30px 20px;
     border-radius: 20px;
-    box-shadow: 0 105px 35px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.3);
     border: 1px solid #2a280a;
     transition: max-width 0.3s ease;
 }
@@ -212,14 +260,24 @@ main{
 
 .form-header h3{
     font-size: 1.8rem;
+}
 
+.auth-card h2{
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
 }
 
 .form-group{
     margin-bottom: 20px;
 }
 
-.form-group label{
+.auth-card > form > div{
+    margin-bottom: 20px;
+}
+
+.form-group label,
+.auth-card label{
     display: block;
     font-size: .85rem;
     font-weight: 500;
@@ -251,6 +309,16 @@ textarea:focus{
     outline: none;
     border-color: var(--highlight);
     box-shadow: 0 0 8px rgba(237, 246, 125, 0.3);
+    background-color: #2a280a;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #2a280a inset;
+    -webkit-text-fill-color: var(--text-color-dark);
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 input:required,
@@ -315,19 +383,28 @@ textarea::placeholder{
     color: var(--text-color-dark);
 }
 
-.btn-primary{
-    background-color: var(--nav-links);
-    color: white;
-}
-
 .link{
     text-align: center;
     margin-top: 15px;
     font-size: .9rem;
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
 
+.auth-card a,
+.link a{
+    color: var(--links-color-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth-card a:hover,
+.link a:hover{
+    color: var(--highlight);
+}
+
+/* Botones de formulario */
 button{
     width: 100%;
     padding: 16px;
@@ -335,28 +412,50 @@ button{
     border: none;
     font-weight: bold;
     font-size: 1rem;
+    font-family: "Quicksand";
+    cursor: pointer;
     transition: all .3s ease;
     margin-top: 15px;
 }
 
-.btn-primary:hover{
-    background-color: var(--highlight);
-    color: black;
-    box-shadow: 0 0 15px rgba(237, 246, 125, 0.3);
+/* Botón principal (enviar / iniciar sesión / crear cuenta): verde */
+button[type="submit"],
+.btn-primary{
+    background-color: var(--btn-primary);
+    color: #131200;
+    border: none;
+    width: 100%;
+    border-radius: var(--radius);
 }
 
+button[type="submit"]:hover,
+.btn-primary:hover{
+    background-color: var(--btn-primary-hover);
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+}
+
+/* Botón secundario (limpiar / cancelar): borde, fondo transparente */
+button[type="reset"],
 .btn-secondary{
     background-color: transparent;
     border: 1px solid #cdb5e0;
     color: #cdb5e0;
-
+    width: 100%;
+    border-radius: var(--radius);
 }
 
+button[type="reset"]:hover,
 .btn-secondary:hover{
     background-color: #cdb5e0;
+    color: var(--bg-color-dark);
 }
 
+/* PIE DE PÁGINA*/
 footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     padding: 30px 20px;
     text-align: center;
     border-top: 1px solid #2a280a;
@@ -366,131 +465,80 @@ footer{
 footer p{
     font-size: .85rem;
     color: #cdb5e0;
-    margin-top: 10px;
 }
 
-@media (width >= 768px) {
-    .auth-container {
-        padding-top: 60px;
+footer a{
+    font-size: .85rem;
+    color: var(--links-color-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover{
+    color: var(--highlight);
+}
+
+/*TABLET (>= 768px)*/
+@media (min-width: 768px) {
+
+    /* Tarjetas de noticias: 2 columnas */
+    #noticias{
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .auth-card {
+    /* Formularios un poco más anchos */
+    .auth-container{
+        padding: 40px 20px;
+    }
+
+    .auth-card{
+        max-width: 700px;
+        padding: 40px 30px;
+    }
+
+    header .principal h1{
+        font-size: 2rem;
+    }
+}
+
+/*ESCRITORIO (>= 1024px)*/
+@media (min-width: 1024px) {
+
+    /* Se oculta el botón hamburguesa */
+    .menu-button{
+        display: none;
+    }
+
+    /* El menú se muestra horizontal */
+    nav ul{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 25px;
+        width: auto;
+        padding: 0;
+        margin-top: 0;
+        background-color: transparent;
+        border-bottom: none;
+        box-shadow: none;
+    }
+
+    /* Hero a tamaño completo */
+    header .principal{
+        height: 400px;
+    }
+
+    header .principal h1{
+        font-size: 2.5rem;
+    }
+
+    /* Tarjetas de noticias: 3 columnas */
+    #noticias{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Formulario centrado con ancho máximo fijo */
+    .auth-card{
         max-width: 700px;
     }
-
-    @media (max-width: 768px) {
-        .menu-button {
-            display: flex
-        }
-
-        nav ul {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background-color: rgba(19, 18, 0, 0.98);
-            border-bottom: 2px solid #2a280a;
-            flex-direction: column;
-            padding: 20px 0;
-            gap: 20px;
-            display: none;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-
-            #menu-toggle:checked ~ ul {
-                display: flex;
-            }
-
-            #menu-toggle:checked ~ .menu-button span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 6px);
-            }
-
-            #menu-toggle:checked ~ .menu-button span:nth-child(2) {
-                opacity: 0;
-            }
-
-            #menu-toggle:checked ~ .menu-button span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -7px);
-            }
-
-        }
-    }
-}
-
-
-/*
-@media (min-width: 768px) {
-    body{
-        background-color: white;
-    }
-    .auth-container{
-        max-width: 1800px;
-    }
-    .auth-card{
-        max-width: 1500px  ;
-    }
-}
-
-@media (width >= 768px){
-    body{
-        background-color: white;
-    }
-    .auth-container{
-        max-width: 1800px;
-    }
-    .auth-card{
-        max-width: 1500px  ;
-    }
-}
-
-@media (480px < width < 1024px){
-
-}
-*/
-
-.auth-card a{
-    color: var(--links-color-dark);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.auth-card a:hover{
-    color: var(--highlight);
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="date"]:focus,
-select:focus,
-textarea:focus{
-    background-color: #2a280a;
-    border-color: var(--highlight);
-}
-
-button[type="submit"],
-button[type="reset"]{
-    background-color: var(--nav-links);
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: var(--radius);
-    font-family: "Quicksand";
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-}
-
-button[type="submit"]:hover,
-button[type="reset"]:hover{
-    background-color: #6f33ad;
-}
-
-.link a{
-    color: var(--links-color-dark);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.link a:hover{
-    color: var(--highlight);
 }
